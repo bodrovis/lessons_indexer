@@ -7,6 +7,18 @@ Builds an index in Markdown format for the lesson files in the provided director
 * `-o` (`--output`) - output file to save index to. Defaults to `README.md`. The file will be creating in the working
 directory if it does not exist. If it does exist, all its contents **will be erased**.
 
+To run on nix systems use
+
+```
+bin/lessons_indexer <options>
+```
+
+For Windows use
+
+```
+bin/lessons_indexer.bat <options>
+```
+
 ## Some Assumptions
 
 The program makes two assumptions:
