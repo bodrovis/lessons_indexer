@@ -15,7 +15,7 @@ module LessonsIndexer
       go_to @options.path
       @env[:files] = get_files
 
-      @env[:f_readme] = open_readme
+      @env[:f_output] = open_output
       @env[:dir_name] = get_dir_name
       @env[:course_title] = @env[:dir_name].titlecase
 
@@ -30,17 +30,19 @@ module LessonsIndexer
       write_index!(index)
 
       @output.puts "Index for the #{@env[:course_title].titlecase} course is generated!"
-      @output.puts "Pushing to GitHub..."
-      git_push!
+      if @options.git
+        @output.puts "Pushing to GitHub..."
+        git_push!
+      end
     end
 
     def write_index!(index)
       begin
-        @env[:f_readme].write(index)
+        @env[:f_output].write(index)
       rescue StandardError => e
         warn e.message
       ensure
-        @env[:f_readme].close
+        @env[:f_output].close
       end
     end
 
@@ -54,9 +56,9 @@ module LessonsIndexer
       end
     end
 
-    def open_readme
-      @env[:files].delete(@options.readme)
-      open(@options.readme, 'w+')
+    def open_output
+      @env[:files].delete(@options.output)
+      open(@options.output, 'w+')
     rescue StandardError => e
       warn e.message
     end

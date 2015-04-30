@@ -22,6 +22,7 @@ module LessonsIndexer
                              banner: 'Welcome to Lessons Indexer. Here is the list of available options:') do
           on '-p', '--path', 'Path', as: String, argument: true
           on '-o', '--output', 'Output file', as: String, argument: true
+          on '-g', '--git', 'Push changes to the remote Git branch?'
         end.to_hash
         normalize! options
       rescue Slop::Error => e
@@ -31,7 +32,7 @@ module LessonsIndexer
     end
 
     def defaults
-      {path: '.', readme: 'README.md'}
+      {path: '.', output: 'README.md', git: false}
     end
 
     def normalize!(opts)

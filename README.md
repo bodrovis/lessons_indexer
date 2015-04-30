@@ -1,11 +1,11 @@
 # Lessons Indexer for Learnable
 
-Builds an index in Markdown format for the lesson files in the provided directory and pushes the result
- to the remote Git branch. Available options:
+Builds an index in Markdown format for the lesson files in the provided directory. Available options:
 
 * `-p` (`--path`) - path to the working directory. Defaults to `.`.
 * `-o` (`--output`) - output file to save index to. Defaults to `README.md`. The file will be creating in the working
 directory if it does not exist. If it does exist, all its contents **will be erased**.
+* `-g` (`--git`) - if present, pushes changes to the remote branch (with the name equal to the local branch).
 
 To run on nix systems use
 
