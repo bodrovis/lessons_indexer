@@ -6,6 +6,9 @@ Builds an index in Markdown format for the lesson files in the provided director
 * `-o` (`--output`) - output file to save index to. Defaults to `README.md`. The file will be creating in the working
 directory if it does not exist. If it does exist, all its contents **will be erased**.
 * `-g` (`--git`) - if present, pushes changes to the remote branch (with the name equal to the local branch).
+* `-m` (`--message`) - which commit message should be specified. Default to "Added index". Has no effect if the `-g` flag
+is not set.
+* `-a` (`--all`) - if present, will rebuild indexes in **all** branches of the specified directory (except for `master`).
 
 To run on nix systems use
 
@@ -24,7 +27,7 @@ bin/lessons_indexer.bat <options>
 The program makes two assumptions:
 
 * The working directory should have a nested folder that contains all lesson files. This folder should be named after
-the course (the program will do its best to convert folder's name to proper title, for example "Introduction_to_less" will
+the course and end with the `_handouts` (the program will do its best to convert folder's name to proper title, for example "Introduction_to_less_handouts" will
 be converted to "Introduction To Less").
 * Lesson files should have the lesson and step numbers in their title separated by `.` or `-`. It may contain any other
 words, but they have to have *.md* extension. Here is an example of a valid file name: `lesson3.2.md` or `h3-2.md`. All other

@@ -1,78 +1,51 @@
 module LessonsIndexer
   class Indexer
-    def initialize(output, argv)
-      @output, @options, @env = output, Options.new(argv), {}
+    attr_reader :output, :options
+
+    def initialize(output, options)
+      @output, @options = output, options
     end
 
-    def start!
-      build_index
+    def build_index!
+      output.puts "Starting to build index..."
+      output.puts "Index for the #{save_index} course is generated!"
+      output.puts "=" * 50
     end
 
     private
 
-    def build_index
-      @output.puts "Starting to build index..."
-      go_to @options.path
-      @env[:files] = get_files
+    def save_index
+      dir_name = get_dir_name
+      course = course_title(dir_name)
 
-      @env[:f_output] = open_output
-      @env[:dir_name] = get_dir_name
-      @env[:course_title] = @env[:dir_name].titlecase
+      generate_index_for course, dir_name
 
-      go_to @env[:dir_name]
-
-      index = "# Index for the " + @env[:course_title] + " course\n\n"
-
-      get_lessons.each do |lesson|
-        index += display_lesson_link(lesson)
-      end
-
-      write_index!(index)
-
-      @output.puts "Index for the #{@env[:course_title].titlecase} course is generated!"
-      if @options.git
-        @output.puts "Pushing to GitHub..."
-        git_push!
-      end
+      git_push! if options.git
+      course
     end
 
-    def write_index!(index)
-      begin
-        @env[:f_output].write(index)
-      rescue StandardError => e
-        warn e.message
-      ensure
-        @env[:f_output].close
-      end
+    def generate_index_for(course, dir)
+      write!(within(dir, true) do
+               get_lessons.inject("# Index for the " + course + " course\n\n") do |memo, lesson|
+                 memo + display_lesson_link(lesson, dir)
+               end
+             end)
     end
 
-    def display_lesson_link(lesson)
+    def display_lesson_link(lesson, dir)
       step = lesson.match(/(\d+)(?:\.|-)(\d+)/)
       begin
-        "* [Lesson #{step[1]}.#{step[2]}](#{@env[:dir_name]}/#{lesson})\n"
+        "* [Lesson #{step[1]}.#{step[2]}](#{dir}/#{lesson})\n"
       rescue NoMethodError
         warn "Found the #{lesson} file which does not have proper naming. File name should contain lesson and step, for example: 'lesson3.2.md'. Skipping this file."
-        return
+        return ''
       end
-    end
-
-    def open_output
-      @env[:files].delete(@options.output)
-      open(@options.output, 'w+')
-    rescue StandardError => e
-      warn e.message
     end
 
     def get_dir_name
-      dir = @env[:files].first
+      dir = get_files.detect {|el| el =~ /_handouts\z/i}
       abort("Lesson files were not found inside the provided directory. Aborting...") if dir.nil?
       dir
-    end
-
-    def go_to(dir)
-      Dir.chdir(dir)
-    rescue Errno::ENOENT
-      abort "The provided directory #{dir} was not found! Aborting..."
     end
 
     def get_files
@@ -83,10 +56,18 @@ module LessonsIndexer
       Dir.entries('.').keep_if {|f| f =~ /\.md\z/i }
     end
 
+    def course_title(dir_name)
+      dir_name.gsub(/_handouts\z/i, '').titlecase
+    end
+
     def git_push!
-      `git add .`
-      `git commit -am "Added index"`
-      `git push origin HEAD`
+      pusher = GitManager::Pusher.new(options.message)
+      pusher.push!
+    end
+
+    def write!(index)
+      writer = Writer.new(options.output)
+      writer << index
     end
   end
 end

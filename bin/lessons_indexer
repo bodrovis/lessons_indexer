@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'lessons_indexer'
-indexer = LessonsIndexer::Indexer.new(STDOUT, ARGV)
+indexer = LessonsIndexer::Starter.new(STDOUT, ARGV)
 indexer.start!

@@ -23,6 +23,8 @@ module LessonsIndexer
           on '-p', '--path', 'Path', as: String, argument: true
           on '-o', '--output', 'Output file', as: String, argument: true
           on '-g', '--git', 'Push changes to the remote Git branch?'
+          on '-m', '--message', 'Commit message', as: String, argument: true
+          on '-a', '--all', 'Rebuild indexes in all branches (except master)'
         end.to_hash
         normalize! options
       rescue Slop::Error => e
@@ -32,7 +34,7 @@ module LessonsIndexer
     end
 
     def defaults
-      {path: '.', output: 'README.md', git: false}
+      {path: '.', output: 'README.md', git: false, message: 'Added index', all: false}
     end
 
     def normalize!(opts)
