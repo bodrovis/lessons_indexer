@@ -20,11 +20,13 @@ module LessonsIndexer
       begin
         options = Slop.parse(argv, strict: true, help: true,
                              banner: 'Welcome to Lessons Indexer. Here is the list of available options:') do
-          on '-p', '--path', 'Path', as: String, argument: true
+          on '-p', '--path', 'Path to the directory with the course', as: String, argument: true
           on '-o', '--output', 'Output file', as: String, argument: true
           on '-g', '--git', 'Push changes to the remote Git branch?'
           on '-m', '--message', 'Commit message', as: String, argument: true
           on '-a', '--all', 'Rebuild indexes in all branches (except master)'
+          on '-i', '--headings', 'Add heading images to the beginning of the lesson files?'
+          on '-d', '--headings_dir', 'Relative path to the directory with heading images', as: String, argument: true
         end.to_hash
         normalize! options
       rescue Slop::Error => e
@@ -34,7 +36,8 @@ module LessonsIndexer
     end
 
     def defaults
-      {path: '.', output: 'README.md', git: false, message: 'Added index', all: false}
+      {path: '.', output: 'README.md', git: false, message: 'Added index', all: false, headings: false,
+       headings_dir: 'headers'}
     end
 
     def normalize!(opts)

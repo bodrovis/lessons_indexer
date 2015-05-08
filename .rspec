@@ -1,1 +1,1 @@
---color --format doc
+--color --format doc --order rand  --require spec_helper
