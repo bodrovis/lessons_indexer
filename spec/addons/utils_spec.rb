@@ -1,12 +1,32 @@
 module Kernel
   RSpec.describe "helper utils" do
     context "#within" do
+      before(:all) {@original_path = Dir.getwd}
+      after(:each) {Dir.chdir(@original_path)}
+
+      it "should return result of the block" do
+        expect(Kernel.within('/') {1 + 1}).to eq(2)
+      end
+
       it "should return immediately if no block is given" do
         expect(Kernel.within('/')).to eq(nil)
       end
 
-      it "should return result of the block" do
-        expect(Kernel.within('/') {1 + 1}).to eq(2)
+      it "should raise an error if directory does not exist" do
+        err = capture_stderr do
+          expect(-> { Kernel.within('non_existent_dir') {1 + 1} }).to raise_error(SystemExit)
+        end
+        expect(err).to eq("[ERROR] The provided directory non_existent_dir was not found! Aborting...\n")
+      end
+
+      it "should return to the original directory" do
+        Kernel.within('/', true) {1 + 1}
+        expect(Dir.getwd).to eq(@original_path)
+      end
+
+      it "should not return to the original directory by default" do
+        Kernel.within('/') {1 + 1}
+        expect(Dir.getwd).not_to eq(@original_path)
       end
     end
 
@@ -27,7 +47,6 @@ module Kernel
         expect(info).to eq("#{before_msg}\n#{after_msg}\n")
       end
     end
-
 
     specify "#warning" do
       expect(Kernel).to respond_to(:warning)

@@ -19,9 +19,10 @@ module Kernel
 
   def within(path, ret = false)
     return unless block_given?
+    initial = Dir.getwd
     Dir.chdir(path)
     val = yield
-    Dir.chdir('..') if ret
+    Dir.chdir(initial) if ret
     return val
   rescue Errno::ENOENT
     exit_msg "The provided directory #{path} was not found! Aborting..."
