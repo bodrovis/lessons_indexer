@@ -7,7 +7,7 @@ module LessonsIndexer
     end
 
     def start!
-      with_messages("Welcome to Lessons Indexer ver#{LessonsIndexer::VERSION}!", "DONE.", false) do
+      with_messages("Welcome to Lessons Indexer ver#{LessonsIndexer::VERSION}!", "=== [ DONE. ] ===", false) do
         indexer = Indexer.new(options)
 
         within options.path do

@@ -20,12 +20,9 @@ module LessonsIndexer
 
     def <<(*args)
       begin
-        file = File.open(name, 'w+')
-        file.write(args.join)
+        File.open(name, 'w+') { |f| f.write(args.join) }
       rescue StandardError => e
         warning e.message
-      ensure
-        file.close if file && !file.closed?
       end
     end
   end
