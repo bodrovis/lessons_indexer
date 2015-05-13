@@ -1,4 +1,5 @@
-![Build Status](https://travis-ci.org/bodrovis/LessonsIndexer.svg?branch=master)
+[![Build Status](https://travis-ci.org/bodrovis/LessonsIndexer.svg?branch=master)](https://travis-ci.org/bodrovis/LessonsIndexer)
+[![Code Climate](https://codeclimate.com/github/bodrovis/LessonsIndexer/badges/gpa.svg)](https://codeclimate.com/github/bodrovis/LessonsIndexer)
 
 # Lessons Indexer for Learnable
 
