@@ -4,7 +4,39 @@
 [![Dependency Status](https://gemnasium.com/bodrovis/LessonsIndexer.svg)](https://gemnasium.com/bodrovis/LessonsIndexer)
 # Lessons Indexer for Learnable
 
-Builds an index in Markdown format for the lesson files in the provided directory and optionally adds heading images to the files. Available options:
+Builds an index in Markdown format for the lesson files in the provided directory, adds heading images to the files,
+pushes changes to GitHub. Can work with multiple branches.
+
+## Installation and Usage
+
+Requires [Ruby](https://www.ruby-lang.org) 2.0+ and [RubyGems](https://rubygems.org/). `Ruby\bin` should be added
+to the PATH.
+
+Install the gem:
+
+```
+gem install lessons_indexer
+```
+
+Run:
+
+```
+lessons_indexer <options>
+```
+
+or 
+
+```
+bundle exec lessons_indexer <options>
+```
+
+If an option contains spaces, it has to be surrounded with quotes:
+
+```
+bin/lessons_indexer -p "C:\User\my test dir\"
+```
+
+## Options
 
 * `-p` (`--path`) - path to the working directory. Defaults to `.`.
 * `-s` (`--skip_index`) - skip index generation. Defaults to `false`.
@@ -18,32 +50,6 @@ is not set.
 has a heading in the beginning, it will be skipped.
 * `-d` (`--headings_dir`) - relative path to the directory with heading images.
 Defaults to `headers`, has no effect if the `-i` flag is not set.
-
-## Running
-
-Requires Ruby 2.0+. Install the necessary gems using
-
-```
-bundle install
-```
-
-To run on nix systems use
-
-```
-bin/lessons_indexer <options>
-```
-
-For Windows use
-
-```
-bin/lessons_indexer.bat <options>
-```
-
-If any option's value contains spaces, it has to be surrounded with quotes:
-
-```
-bin/lessons_indexer -p "C:\User\my test dir\"
-```
 
 ## Some Assumptions
 
@@ -64,6 +70,7 @@ this step will be just skipped and the corresponding warning message will be dis
 ## Testing
 
 ```
+bundle install
 rspec .
 ```
 
