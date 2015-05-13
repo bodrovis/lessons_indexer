@@ -1,3 +1,4 @@
+[![Gem Version](https://badge.fury.io/rb/lessons_indexer.svg)](http://badge.fury.io/rb/lessons_indexer)
 [![Build Status](https://travis-ci.org/bodrovis/LessonsIndexer.svg?branch=master)](https://travis-ci.org/bodrovis/LessonsIndexer)
 [![Code Climate](https://codeclimate.com/github/bodrovis/LessonsIndexer/badges/gpa.svg)](https://codeclimate.com/github/bodrovis/LessonsIndexer)
 [![Test Coverage](https://codeclimate.com/github/bodrovis/LessonsIndexer/badges/coverage.svg)](https://codeclimate.com/github/bodrovis/LessonsIndexer/coverage)
