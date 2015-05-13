@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/bodrovis/LessonsIndexer.svg?branch=master)]
+
 # Lessons Indexer for Learnable
 
 Builds an index in Markdown format for the lesson files in the provided directory and optionally adds heading images to the files. Available options:
