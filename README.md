@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/bodrovis/LessonsIndexer.svg?branch=master)]
+![Build Status](https://travis-ci.org/bodrovis/LessonsIndexer.svg?branch=master)
 
 # Lessons Indexer for Learnable
 
@@ -19,7 +19,7 @@ Defaults to `headers`, has no effect if the `-i` flag is not set.
 
 ## Running
 
-Requires Ruby 1.9+. Install the necessary gems using
+Requires Ruby 2.0+. Install the necessary gems using
 
 ```
 bundle install
