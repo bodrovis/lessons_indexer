@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/bodrovis/LessonsIndexer.svg?branch=master)](https://travis-ci.org/bodrovis/LessonsIndexer)
 [![Code Climate](https://codeclimate.com/github/bodrovis/LessonsIndexer/badges/gpa.svg)](https://codeclimate.com/github/bodrovis/LessonsIndexer)
-
+[![Test Coverage](https://codeclimate.com/github/bodrovis/LessonsIndexer/badges/coverage.svg)](https://codeclimate.com/github/bodrovis/LessonsIndexer/coverage)
 # Lessons Indexer for Learnable
 
 Builds an index in Markdown format for the lesson files in the provided directory and optionally adds heading images to the files. Available options:
