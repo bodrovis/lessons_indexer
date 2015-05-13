@@ -1,4 +1,3 @@
-require 'pry'
 require 'facets/string/titlecase'
 require 'slop'
 require 'colorize'

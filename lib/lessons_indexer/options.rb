@@ -15,34 +15,21 @@ module LessonsIndexer
     private
 
     def parse_args(argv)
-      return defaults if argv.empty?
-
       begin
-        options = Slop.parse(argv, strict: true, help: true,
-                             banner: 'Welcome to Lessons Indexer. Here is the list of available options:') do
-          on '-p', '--path', 'Path to the directory with the course', as: String, argument: true
-          on '-s', '--skip_index', 'Skip index generation for the course'
-          on '-o', '--output', 'Output file', as: String, argument: true
-          on '-g', '--git', 'Push changes to the remote Git branch?'
-          on '-m', '--message', 'Commit message', as: String, argument: true
-          on '-a', '--all', 'Worh with all branches (except for master)'
-          on '-i', '--headings', 'Add heading images to the beginning of the lesson files?'
-          on '-d', '--headings_dir', 'Relative path to the directory with heading images', as: String, argument: true
+        Slop.parse(argv, strict: true, help: true,
+                             banner: 'Welcome to Lessons Indexer. Here is the list of available options:') do |o|
+          o.string '-p', '--path', 'Path to the directory with the course', default: '.'#, argument: true
+          o.bool '-s', '--skip_index', 'Skip index generation for the course', default: false
+          o.string '-o', '--output', 'Output file', default: 'README.md'#, as: String, argument: true
+          o.bool '-g', '--git', 'Push changes to the remote Git branch?', default: false
+          o.string '-m', '--message', 'Commit message', default: 'Added index'#, as: String, argument: true
+          o.bool '-a', '--all', 'Work with all branches (except for master)', default: false
+          o.bool '-i', '--headings', 'Add heading images to the beginning of the lesson files?', default: false
+          o.string '-d', '--headings_dir', 'Relative path to the directory with heading images', default: 'headers'#, as: String, argument: true
         end.to_hash
-        normalize! options
       rescue Slop::Error => e
-        abort e.message
-        defaults
+        exit_msg e.message
       end
-    end
-
-    def defaults
-      {path: '.', output: 'README.md', git: false, message: 'Added index', all: false, headings: false,
-       headings_dir: 'headers', skip_index: false}
-    end
-
-    def normalize!(opts)
-      opts.merge!(defaults) {|k, v1, v2| v1.nil? ? v2 : v1}
     end
   end
 end
