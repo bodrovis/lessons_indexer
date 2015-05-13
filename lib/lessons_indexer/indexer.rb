@@ -9,28 +9,27 @@ module LessonsIndexer
     end
 
     def build_index!
-      course_dir_name = get_dir_name
-      course = course_title(course_dir_name)
-
-      with_messages("Starting to build index...", "Index for the #{course} course is generated!") do
-        generate_index_for course, course_dir_name
+      course = Course.new(get_dir_name)
+      with_messages("Starting to build index...", "Index for the #{course.title} course is generated!") do
+        generate_index_for course
       end
     end
 
     def add_headings!
       with_messages("Starting to add headings...", "Headings for the lesson files were added!") do
-        within(get_dir_name, true) do
-          generate_headings_for options.headings_dir
+        course = Course.new(get_dir_name)
+        within(course.dir, true) do
+          generate_headings_for course
         end
       end
     end
 
     private
 
-    def generate_headings_for(dir)
-      images = within(dir, true) { get_files }.keep_if {|f| f.match(STEP_LESSON_PATTERN)}
+    def generate_headings_for(course)
+      images = within(options.headings_dir, true) { get_files }.keep_if {|f| f.match(STEP_LESSON_PATTERN)}
 
-      get_lessons.each do |lesson_file|
+      course.lessons.each do |lesson_file|
         step_lesson = lesson_file.match(STEP_LESSON_PATTERN)
         begin
           lesson_image = images.detect do |image|
@@ -38,7 +37,7 @@ module LessonsIndexer
             step_lesson[1] == step_image[1] && step_lesson[2] == step_image[2]
           end
           if lesson_image
-            prepend!("![](#{dir}/#{lesson_image})\n\n", lesson_file)
+            prepend!("![](#{options.headings_dir}/#{lesson_image})\n\n", lesson_file)
           else
             warning "I was not able to find heading image for the lesson #{step_lesson[0]}"
           end
@@ -48,12 +47,12 @@ module LessonsIndexer
       end
     end
 
-    def generate_index_for(course, dir)
-      write!(within(dir, true) do
-               get_lessons.inject("# Index for the " + course + " course\n\n") do |memo, lesson|
-                 memo + display_lesson_link(lesson, dir)
-               end
-             end, options.output)
+    def generate_index_for(course)
+      write!(
+        course.lessons.inject("# Index for the " + course.title + " course\n\n") do |memo, lesson|
+          memo + display_lesson_link(lesson, course.dir)
+        end, options.output
+      )
     end
 
     def display_lesson_link(lesson, dir)
@@ -90,10 +89,6 @@ module LessonsIndexer
           warning "Found the #{lesson} file which does not have proper naming. File name should contain lesson and step, for example: 'lesson3.2.md'. Skipping this file."
         end
       end
-    end
-
-    def course_title(dir_name)
-      dir_name.gsub(/_handouts\z/i, '').titlecase
     end
 
     def write!(contents, file)

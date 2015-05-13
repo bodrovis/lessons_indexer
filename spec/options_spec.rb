@@ -5,6 +5,7 @@ module LessonsIndexer
     it "should assign default options if no arguments are given" do
       options = Options.new(argv)
       expect(options.path).to eq('.')
+      expect(options.skip_index).to be_falsey
       expect(options.output).to eq('README.md')
       expect(options.git).to be_falsey
       expect(options.message).to eq('Added index')

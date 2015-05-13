@@ -3,12 +3,13 @@
 Builds an index in Markdown format for the lesson files in the provided directory and optionally adds heading images to the files. Available options:
 
 * `-p` (`--path`) - path to the working directory. Defaults to `.`.
+* `-s` (`--skip_index`) - skip index generation. Defaults to `false`.
 * `-o` (`--output`) - output file to save index to. Defaults to `README.md`. The file will be creating in the working
-directory if it does not exist. If it does exist, all its contents **will be erased**.
+directory if it does not exist. If it does exist, all its contents **will be erased**. Has no effect if `-s` is set.
 * `-g` (`--git`) - if present, pushes changes to the remote branch (with the name equal to the local branch).
 * `-m` (`--message`) - which commit message should be specified. Default to "Added index". Has no effect if the `-g` flag
 is not set.
-* `-a` (`--all`) - if present, will rebuild indexes in **all** branches of the specified directory (except for `master`).
+* `-a` (`--all`) - if present, will work with **all** branches of the specified directory (except for `master`).
 * `-i` (`--headings`) - if present, heading images will be added to the beginning of each lesson file. If the file already
 has a heading in the beginning, it will be skipped.
 * `-d` (`--headings_dir`) - relative path to the directory with heading images.

@@ -28,7 +28,7 @@ module LessonsIndexer
     private
 
     def work_with(indexer)
-      indexer.build_index!
+      indexer.build_index! unless options.skip_index
       indexer.add_headings! if options.headings
       git_push! if options.git
     end

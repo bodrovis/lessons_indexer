@@ -10,11 +10,9 @@ module LessonsIndexer
       expect(@writer.name).to eq('test.txt')
     end
 
-    context "#<<" do
-      it "should write" do
-        contents = IO.read(@writer.name)
-        expect(contents).to eq('test')
-      end
+    specify "#<<" do
+      contents = IO.read(@writer.name)
+      expect(contents).to eq('test')
     end
 
     context "#prepend_data" do

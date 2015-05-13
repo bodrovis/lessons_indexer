@@ -15,7 +15,7 @@ module Kernel
       it "should raise an error if directory does not exist" do
         err = capture_stderr do
           expect(-> { Kernel.within('non_existent_dir') {1 + 1} }).to raise_error(SystemExit)
-        end
+        end.uncolorize
         expect(err).to eq("[ERROR] The provided directory non_existent_dir was not found! Aborting...\n")
       end
 
@@ -36,14 +36,14 @@ module Kernel
       it "should handle block and display messages and delimiter" do
         info = capture_stdout do
           with_messages(before_msg, after_msg) { 1 + 1 }
-        end
+        end.uncolorize
         expect(info).to eq("#{before_msg}\n#{after_msg}\n#{'=' * 50}\n")
       end
 
       it "should not display delimiter when false is passed" do
         info = capture_stdout do
           with_messages(before_msg, after_msg, false) { 1 + 1 }
-        end
+        end.uncolorize
         expect(info).to eq("#{before_msg}\n#{after_msg}\n")
       end
     end
@@ -52,14 +52,14 @@ module Kernel
       expect(Kernel).to respond_to(:warning)
       err = capture_stderr do
         warning "alert"
-      end
+      end.uncolorize
       expect(err).to eq("[WARNING] alert\n")
     end
 
     specify "#exit_msg" do
       err = capture_stderr do
         expect(-> {exit_msg('critical')}).to raise_error(SystemExit)
-      end
+      end.uncolorize
       expect(err).to eq("[ERROR] critical\n")
     end
   end

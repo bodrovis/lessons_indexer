@@ -3,18 +3,18 @@ module Kernel
     return unless block_given?
     prior, after = String(prior).to_s, String(after).to_s
 
-    output.puts prior unless prior == ''
+    output.puts prior.magenta unless prior == ''
     yield
-    output.puts after unless after == ''
-    output.puts "=" * 50 if delimiter
+    output.puts after.green unless after == ''
+    output.puts "=".yellow * 50 if delimiter
   end
 
   def warning(*msg)
-    warn "[WARNING] #{msg.join(' ')}"
+    warn "[WARNING] #{msg.join(' ')}".cyan
   end
 
   def exit_msg(*msg)
-    abort "[ERROR] #{msg.join(' ')}"
+    abort "[ERROR] #{msg.join(' ')}".red
   end
 
   def within(path, ret = false)
