@@ -1,8 +1,8 @@
 [![Gem Version](https://badge.fury.io/rb/lessons_indexer.svg)](http://badge.fury.io/rb/lessons_indexer)
-[![Build Status](https://travis-ci.org/bodrovis/lessons_indexer.svg?branch=master)](https://travis-ci.org/bodrovis/LessonsIndexer)
-[![Code Climate](https://codeclimate.com/github/bodrovis/lessons_indexer/badges/gpa.svg)](https://codeclimate.com/github/bodrovis/LessonsIndexer)
-[![Test Coverage](https://codeclimate.com/github/bodrovis/lessons_indexer/badges/coverage.svg)](https://codeclimate.com/github/bodrovis/LessonsIndexer/coverage)
-[![Dependency Status](https://gemnasium.com/bodrovis/lessons_indexer.svg)](https://gemnasium.com/bodrovis/LessonsIndexer)
+[![Build Status](https://travis-ci.org/bodrovis/lessons_indexer.svg?branch=master)](https://travis-ci.org/bodrovis/lessons_indexer)
+[![Code Climate](https://codeclimate.com/github/bodrovis/lessons_indexer/badges/gpa.svg)](https://codeclimate.com/github/bodrovis/lessons_indexer)
+[![Test Coverage](https://codeclimate.com/github/bodrovis/lessons_indexer/badges/coverage.svg)](https://codeclimate.com/github/bodrovis/lessons_indexer/coverage)
+[![Dependency Status](https://gemnasium.com/bodrovis/lessons_indexer.svg)](https://gemnasium.com/bodrovis/lessons_indexer)
 # Lessons Indexer for Learnable
 
 Builds an index in Markdown format for the lesson files in the provided directory, adds heading images to the files,
