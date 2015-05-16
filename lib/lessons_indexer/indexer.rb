@@ -1,6 +1,6 @@
 module LessonsIndexer
   class Indexer
-    STEP_LESSON_PATTERN = /(\d+)(?:\.|-)(\d+)/
+    include Addons::FileManager
 
     attr_reader :options
 
@@ -8,87 +8,31 @@ module LessonsIndexer
       @options = options
     end
 
-    def build_index!
-      course = Course.new(get_dir_name)
+    def do_work!
+      course = Course.new(get_dir_name, options.headings_dir)
+
+      build_index(course) unless options.skip_index
+      add_headings(course) if options.headings
+    end
+
+    def build_index(course)
       with_messages("Starting to build index...", "Index for the #{course.title} course is generated!") do
-        generate_index_for course
+        write! course.generate_index, options.output
       end
     end
 
-    def add_headings!
-      with_messages("Starting to add headings...", "Headings for the lesson files were added!") do
-        course = Course.new(get_dir_name)
-        within(course.dir, true) do
-          generate_headings_for course
-        end
+    def add_headings(course)
+      with_messages("Starting to add headings...", "Headings for the lesson files of #{course.title} course were added!") do
+        course.generate_headings { |heading_line, lesson_file| prepend!(heading_line, lesson_file) }
       end
     end
 
     private
 
-    def generate_headings_for(course)
-      images = within(options.headings_dir, true) { get_files }.keep_if {|f| f.match(STEP_LESSON_PATTERN)}
-
-      course.lessons.each do |lesson_file|
-        step_lesson = lesson_file.match(STEP_LESSON_PATTERN)
-        begin
-          lesson_image = images.detect do |image|
-            step_image = image.match(STEP_LESSON_PATTERN)
-            step_lesson[1] == step_image[1] && step_lesson[2] == step_image[2]
-          end
-          if lesson_image
-            prepend!("![](#{options.headings_dir}/#{lesson_image})\n\n", lesson_file)
-          else
-            warning "I was not able to find heading image for the lesson #{step_lesson[0]}"
-          end
-        rescue NoMethodError
-          warning "Found the #{lesson_file} file which does not have proper naming. File name should contain lesson and step, for example: 'lesson3.2.md'. Skipping this file."
-        end
-      end
-    end
-
-    def generate_index_for(course)
-      write!(
-        course.lessons.inject("# Index for the " + course.title + " course\n\n") do |memo, lesson|
-          memo + display_lesson_link(lesson, course.dir)
-        end, options.output
-      )
-    end
-
-    def display_lesson_link(lesson, dir)
-      step = lesson.match(STEP_LESSON_PATTERN)
-      begin
-        "* [Lesson #{step[1]}.#{step[2]}](#{dir}/#{lesson})\n"
-      rescue NoMethodError
-        warning "Found the #{lesson} file which does not have proper naming. File name should contain lesson and step, for example: 'lesson3.2.md'. Skipping this file."
-        return ''
-      end
-    end
-
     def get_dir_name
-      dir = get_files.detect {|el| el =~ /_handouts\z/i}
+      dir = Dir.entries('.').detect {|el| el =~ /_handouts\z/i}
       exit_msg("Lesson files were not found inside the provided directory. Aborting...") if dir.nil?
       dir
-    end
-
-    def get_files
-      Dir.entries('.').delete_if {|f| f == '.' || f == '..' || f == '.git' || f == '.gitignore' }
-    end
-
-    def get_lessons
-      Dir.entries('.').keep_if {|f| f =~ /\.md\z/i }.sort do |a, b|
-        begin
-          step_a, step_b = a.match(STEP_LESSON_PATTERN), b.match(STEP_LESSON_PATTERN)
-          major_a, minor_a, major_b, minor_b = step_a[1].to_i, step_a[2].to_i, step_b[1].to_i, step_b[2].to_i
-          if major_a == major_b
-            minor_a <=> minor_b
-          else
-            major_a <=> major_b
-          end
-        rescue NoMethodError
-          warning "Found the #{lesson} file which does not have proper naming. File name should contain lesson and step, for example: 'lesson3.2.md'. Skipping this file."
-        end
-      end
     end
 
     def write!(contents, file)

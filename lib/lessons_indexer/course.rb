@@ -1,32 +1,55 @@
 module LessonsIndexer
   class Course
-    STEP_LESSON_PATTERN = /(\d+)(?:\.|-)(\d+)/
+    include Models
+    include Collections
 
-    attr_reader :dir, :title, :lessons
+    attr_reader :dir, :headings_dir, :title, :lessons, :headings
 
-    def initialize(course_dir)
+    def initialize(course_dir, headings_dir)
       @dir = course_dir
+      @headings_dir = headings_dir
       @title = dir.gsub(/_handouts\z/i, '').titlecase
-      @lessons = get_lessons
+      @headings = []
     end
 
-    def get_lessons
-      #TODO: Lesson class
-      within(dir, true) do
-        Dir.entries('.').keep_if {|f| f =~ /\.md\z/i }.sort do |a, b|
-          begin
-            step_a, step_b = a.match(STEP_LESSON_PATTERN), b.match(STEP_LESSON_PATTERN)
-            major_a, minor_a, major_b, minor_b = step_a[1].to_i, step_a[2].to_i, step_b[1].to_i, step_b[2].to_i
-            if major_a == major_b
-              minor_a <=> minor_b
-            else
-              major_a <=> major_b
-            end
-          rescue NoMethodError
-            warning "Found the #{lesson} file which does not have proper naming. File name should contain lesson and step, for example: 'lesson3.2.md'. Skipping this file."
-          end
+    def generate_index
+      load_lessons!
+
+      lessons.list.sort.inject("# Index for the " + title + " course\n\n") do |memo, lesson|
+        memo + lesson.link(dir)
+      end
+    end
+
+    def generate_headings
+      load_lessons!
+      load_headings!
+
+      lessons.each do |lesson|
+        lesson_heading = headings.for(lesson)
+        if lesson_heading
+          yield "![](#{headings_dir}/#{lesson_heading.file_name})\n\n", lesson.path
+        else
+          warning "I was not able to find heading image for the #{lesson.name}"
         end
       end
+    end
+
+    def load_headings!
+      within(dir + '/' + headings_dir, true) do
+        @headings = HeadingsList.new(all_with_pattern(Heading::VERSION_PATTERN).map {|heading| Heading.new(heading)})
+      end
+    end
+
+    def load_lessons!
+      within(dir, true) do
+        @lessons = LessonsList.new(all_with_pattern(Lesson::NAME_PATTERN).map {|lesson| Lesson.new(lesson)})
+      end
+    end
+
+    private
+
+    def all_with_pattern(pattern)
+      Dir.entries('.').keep_if {|f| f =~ pattern }
     end
   end
 end

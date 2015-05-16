@@ -1,5 +1,6 @@
 module LessonsIndexer
   class Starter
+    include Addons::GitManager
     attr_reader :options
 
     def initialize(argv)
@@ -7,7 +8,7 @@ module LessonsIndexer
     end
 
     def start!
-      with_messages("Welcome to Lessons Indexer ver#{LessonsIndexer::VERSION}!", "=== [ DONE. ] ===", false) do
+      with_messages("=== [ Welcome to Lessons Indexer ver#{LessonsIndexer::VERSION}! ] ===", "=== [ DONE. ] ===", false) do
         indexer = Indexer.new(options)
 
         within options.path do
@@ -28,8 +29,7 @@ module LessonsIndexer
     private
 
     def work_with(indexer)
-      indexer.build_index! unless options.skip_index
-      indexer.add_headings! if options.headings
+      indexer.do_work!
       git_push! if options.git
     end
 
