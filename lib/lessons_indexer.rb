@@ -10,6 +10,7 @@ require 'lessons_indexer/models/base'
 require 'lessons_indexer/models/heading'
 require 'lessons_indexer/models/lesson'
 
+require 'lessons_indexer/collections/base'
 require 'lessons_indexer/collections/headings_list'
 require 'lessons_indexer/collections/lessons_list'
 
