@@ -27,10 +27,10 @@ RSpec.describe LessonsIndexer::Course do
       expect(subject).to receive(:lessons).and_return(sample_lessons)
       expect(subject).to receive(:headings).and_return(sample_headings).exactly(4).times
       expect {|block| subject.generate_headings(&block)}.to yield_successive_args(
-                                                              ["![](headings/lesson2.5.jpg)\n\n", "F:/rails/my/lessons_indexer/lesson2.5.md"],
-                                                              ["![](headings/lesson10.2.jpg)\n\n", "F:/rails/my/lessons_indexer/lesson10.2.md"],
-                                                              ["![](headings/lesson1.3.jpg)\n\n", "F:/rails/my/lessons_indexer/lesson1.3.md"],
-                                                              ["![](headings/lesson5.8.jpg)\n\n", "F:/rails/my/lessons_indexer/lesson5.8.md"]
+                                                              ["![](headings/lesson2.5.jpg)\n\n", "#{Dir.pwd}/lesson2.5.md"],
+                                                              ["![](headings/lesson10.2.jpg)\n\n", "#{Dir.pwd}/lesson10.2.md"],
+                                                              ["![](headings/lesson1.3.jpg)\n\n", "#{Dir.pwd}/lesson1.3.md"],
+                                                              ["![](headings/lesson5.8.jpg)\n\n", "#{Dir.pwd}/lesson5.8.md"]
                                                             )
     end
 
@@ -39,10 +39,10 @@ RSpec.describe LessonsIndexer::Course do
       expect(subject).to receive(:headings).and_return(sample_headings).exactly(5).times
       err = capture_stderr do
         expect {|block| subject.generate_headings(&block)}.to yield_successive_args(
-                                                                ["![](headings/lesson2.5.jpg)\n\n", "F:/rails/my/lessons_indexer/lesson2.5.md"],
-                                                                ["![](headings/lesson10.2.jpg)\n\n", "F:/rails/my/lessons_indexer/lesson10.2.md"],
-                                                                ["![](headings/lesson1.3.jpg)\n\n", "F:/rails/my/lessons_indexer/lesson1.3.md"],
-                                                                ["![](headings/lesson5.8.jpg)\n\n", "F:/rails/my/lessons_indexer/lesson5.8.md"]
+                                                                ["![](headings/lesson2.5.jpg)\n\n", "#{Dir.pwd}/lesson2.5.md"],
+                                                                ["![](headings/lesson10.2.jpg)\n\n", "#{Dir.pwd}/lesson10.2.md"],
+                                                                ["![](headings/lesson1.3.jpg)\n\n", "#{Dir.pwd}/lesson1.3.md"],
+                                                                ["![](headings/lesson5.8.jpg)\n\n", "#{Dir.pwd}/lesson5.8.md"]
                                                               )
       end.uncolorize
       expect(err).to eq("[WARNING] I was not able to find heading image for the Lesson 6.3\n")
