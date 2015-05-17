@@ -18,6 +18,6 @@ RSpec.describe LessonsIndexer::Addons::GitManager::Brancher do
   specify { expect(subject).to respond_to(:within_branch) }
 
   specify "#get_branches" do
-    expect(subject.get_branches).to include 'master'
+    expect(subject.get_branches).to be_a Array
   end
 end
