@@ -8,4 +8,6 @@ require 'lessons_indexer'
 
 RSpec.configure do |config|
   config.include SpecUtils
+  config.include SpecSamples
+  config.include SpecFilesSetup
 end

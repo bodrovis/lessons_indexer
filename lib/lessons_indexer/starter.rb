@@ -1,6 +1,5 @@
 module LessonsIndexer
   class Starter
-    include Addons::GitManager
     attr_reader :options
 
     def initialize(argv)
@@ -16,26 +15,14 @@ module LessonsIndexer
             brancher = GitManager::Brancher.new
             brancher.get_branches.each do |branch|
               brancher.within_branch branch do
-                work_with indexer
+                indexer.do_work!
               end
             end
           else
-            work_with indexer
+            indexer.do_work!
           end
         end
       end
-    end
-
-    private
-
-    def work_with(indexer)
-      indexer.do_work!
-      git_push! if options.git
-    end
-
-    def git_push!
-      pusher = GitManager::Pusher.new(options.message)
-      pusher.push!
     end
   end
 end

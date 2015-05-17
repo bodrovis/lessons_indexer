@@ -13,17 +13,12 @@ module LessonsIndexer
     end
 
     def generate_index
-      load_lessons!
-
       lessons.list.sort.inject("# Index for the " + title + " course\n\n") do |memo, lesson|
         memo + lesson.link(dir)
       end
     end
 
     def generate_headings
-      load_lessons!
-      load_headings!
-
       lessons.each do |lesson|
         lesson_heading = headings.for(lesson)
         if lesson_heading

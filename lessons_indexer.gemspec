@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "facets", "~> 3.0"
   spec.add_dependency "colorize", "~> 0.7.7"
 
-  spec.add_development_dependency "rake"
-  spec.add_development_dependency "rspec"
-  spec.add_development_dependency "codeclimate-test-reporter"
+  spec.add_development_dependency "rake", "~> 10.4"
+  spec.add_development_dependency "rspec", "~> 3.2"
+  spec.add_development_dependency "codeclimate-test-reporter", "~> 0.4"
 end
