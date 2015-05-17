@@ -20,4 +20,15 @@ module SpecUtils
     end
     fake.string
   end
+
+  def capture_stdin(&block)
+    original_stdin = $stdin
+    $stdin = fake = StringIO.new
+    begin
+      yield
+    ensure
+      $stdin = original_stdin
+    end
+    fake.string
+  end
 end
