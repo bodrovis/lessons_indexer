@@ -5,10 +5,19 @@ RSpec.describe LessonsIndexer::Addons::GitManager::Pusher do
     expect(subject.message).to eq('test message')
   end
 
-  specify "#push!" do
-    input = capture_stdin do
-      expect(-> { subject.push! }).to output("some output").to_stdout
-    end
-    expect(input).to eq('test')
+  specify { expect(subject).to respond_to(:push!) }
+end
+
+RSpec.describe LessonsIndexer::Addons::GitManager::Brancher do
+  subject {described_class.new(false)}
+
+  specify "#ignore_master" do
+    expect(subject.ignore_master).to eq(false)
+  end
+
+  specify { expect(subject).to respond_to(:within_branch) }
+
+  specify "#get_branches" do
+    expect(subject.get_branches).to include 'master'
   end
 end
