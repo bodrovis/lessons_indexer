@@ -6,9 +6,8 @@ RSpec.describe LessonsIndexer::Addons::GitManager::Pusher do
   end
 
   specify "#push!" do
-    input = capture_stdin do
-      subject.push!
-    end
-    expect(input).to eq('test')
+
+      expect(-> { subject.push! }).to output("some output").to_stdout
+
   end
 end
