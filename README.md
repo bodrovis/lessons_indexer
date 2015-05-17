@@ -50,7 +50,7 @@ is not set.
 * `-i` (`--headings`) - if present, heading images will be added to the beginning of each lesson file. If the file already
 has a heading in the beginning, it will be skipped.
 * `-d` (`--headings_dir`) - relative path to the directory with heading images.
-Defaults to `headers`, has no effect if the `-i` flag is not set.
+Defaults to `headings`, has no effect if the `-i` flag is not set.
 
 ## Some Assumptions
 

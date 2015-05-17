@@ -31,4 +31,8 @@ module SpecSamples
   def headings_array_with_incorrect
     headings_array.insert(2, 'test2.png')
   end
+
+  def sample_options
+    ['-o', 'test.md']
+  end
 end

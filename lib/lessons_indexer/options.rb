@@ -25,7 +25,7 @@ module LessonsIndexer
           o.string '-m', '--message', 'Commit message', default: 'Added index'
           o.bool '-a', '--all', 'Work with all branches (except for master)', default: false
           o.bool '-i', '--headings', 'Add heading images to the beginning of the lesson files?', default: false
-          o.string '-d', '--headings_dir', 'Relative path to the directory with heading images', default: 'headers'
+          o.string '-d', '--headings_dir', 'Relative path to the directory with heading images', default: 'headings'
         end.to_hash
       rescue Slop::Error => e
         exit_msg e.message

@@ -13,6 +13,7 @@ module SpecFilesSetup
   end
 
   def clear_env!
-    FileUtils.remove_entry('my_course_handouts', true)
+    FileUtils.remove_entry('my_course_handouts')
+    FileUtils.remove_entry('test.md', true)
   end
 end

@@ -10,7 +10,7 @@ module LessonsIndexer
     end
 
     def do_work!
-      course = Course.new(get_dir_name, options.headings_dir)
+      course = Course.new(get_course_dir, options.headings_dir)
 
       build_index(course) unless options.skip_index
       add_headings(course) if options.headings
@@ -32,13 +32,13 @@ module LessonsIndexer
       end
     end
 
-    private
-
-    def get_dir_name
+    def get_course_dir
       dir = Dir.entries('.').detect {|el| el =~ /_handouts\z/i}
       exit_msg("Lesson files were not found inside the provided directory. Aborting...") if dir.nil?
       dir
     end
+
+    private
 
     def write!(contents, file)
       writer = Writer.new(file)

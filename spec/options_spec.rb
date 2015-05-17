@@ -8,7 +8,7 @@ RSpec.describe LessonsIndexer::Options do
     expect(options.message).to eq('Added index')
     expect(options.all).to be_falsey
     expect(options.headings).to be_falsey
-    expect(options.headings_dir).to eq('headers')
+    expect(options.headings_dir).to eq('headings')
   end
 
   it "should allow to override some options" do
