@@ -72,7 +72,7 @@ this step will be just skipped and the corresponding warning message will be dis
 
 ## PDF Generation
 
-Starting from version **0.2.0** Indexer supports PDF generation. It is disabled by default - provide `-f` flag to enable this feature.
+Starting from version **0.2.0** Indexer supports PDF generation ([GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/) is expected). It is disabled by default - provide `-f` flag to enable this feature.
 
 PDF generation is not a very simple process, so some additional software has to be installed on your machine:
 
