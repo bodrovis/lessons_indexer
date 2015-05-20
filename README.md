@@ -51,6 +51,8 @@ is not set.
 has a heading in the beginning, it will be skipped.
 * `-d` (`--headings_dir`) - relative path to the directory with heading images.
 Defaults to `headings`, has no effect if the `-i` flag is not set.
+* `-f` (`--pdf`) - should PDFs be generated from the lesson files in markdown format. PDFs will have the same name as the
+lesson files, read more [below](#pdf-generation). Defauls to `false`.
 
 ## Some Assumptions
 
@@ -67,6 +69,32 @@ This directory's name can be provided with the `-d` flag. Files inside should fo
 files (of course, they don't need to have the *.md* extension). Valid files names: `Git Course 1.1.jpg` or `google_maps10-3.png`.
 All other files will be ignored. If the program cannot find a header image for a specific step,
 this step will be just skipped and the corresponding warning message will be displayed.
+
+## PDF Generation
+
+Starting from version **0.2.0** Indexer supports PDF generation. It is disabled by default - provide `-f` flag to enable this feature.
+
+PDF generation is not a very simple process, so some additional software has to be installed on your machine:
+
+* [Pandoc](http://pandoc.org/) - the main program that makes conversion possible. It supports all major platforms, just select the [version](http://pandoc.org/installing.html) that suits you.
+* [LaTex](http://www.latex-project.org/). Unfortunately, it is not possible to convert directly to PDF, so LaTex is required. Pandoc [lists](http://pandoc.org/installing.html) the recommended
+implementations of LaTex for various platforms.
+* [xetex](http://xetex.sourceforge.net/) - extension for LaTex to integrate typesetting capabilities. By default changing the default
+font family is a huge pain, therefore xetex is used. Please note, that it is already a part of some LaTex implementations
+(for example, if you install full version of MIKTex, xetex will already be present, so no additional actions are needed).
+
+Make sure Pandoc is present in your PATH by typing
+
+```
+pandoc -v
+```
+
+in your terminal.
+
+Indexer uses [Open Sans](http://www.fontsquirrel.com/fonts/open-sans) as a main font and [Liberation Mono](http://www.fontsquirrel.com/fonts/Liberation-Mono) as monotype font (for code examples). Both of these fonts
+are free (in contrast to Helvetica Neue that has to be purchased), so if you don't have those fonts just download them and install into the fonts directory.
+
+After that you are ready to generate PDFs! Just remember that it will take some time (about 5-10 seconds per lesson file).
 
 ## Testing
 
