@@ -47,7 +47,7 @@ RSpec.describe LessonsIndexer::Indexer do
 
   context "#get_course_dir" do
     it "should return course dir" do
-      expect(subject.get_course_dir)
+      expect(subject.get_course_dir).to eq('my_course_handouts')
     end
 
     it "should abort if course dir is not found" do
