@@ -29,6 +29,14 @@ module LessonsIndexer
       end
     end
 
+    def generate_pdfs
+      within(dir, true) do
+        lessons.list.sort.each do |lesson|
+          %x{pandoc #{lesson.file_name} -f markdown_github -o #{lesson.file_name.gsub(/md\z/i, '')}.pdf --variable geometry:"top=1.5cm, bottom=2.5cm, left=1.5cm, right=1.5cm" --latex-engine=xelatex --variable mainfont="Open Sans" --variable monofont="Liberation Mono" --variable fontsize="12pt"}
+        end
+      end
+    end
+
     def load_headings!
       within(dir + '/' + headings_dir, true) do
         @headings = HeadingsList.new(all_with_pattern(Heading::VERSION_PATTERN).map {|heading| Heading.new(heading)})

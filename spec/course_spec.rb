@@ -22,6 +22,10 @@ RSpec.describe LessonsIndexer::Course do
     expect(subject.generate_index).to eq("# Index for the My Course course\n\n* [Lesson 1.3](my_course_handouts/lesson1.3.md)\n* [Lesson 2.5](my_course_handouts/lesson2.5.md)\n* [Lesson 5.8](my_course_handouts/lesson5.8.md)\n* [Lesson 10.2](my_course_handouts/lesson10.2.md)\n")
   end
 
+  specify "#generate_pdfs" do
+    expect(subject).to respond_to(:generate_pdfs)
+  end
+
   context "#generate_headings" do
     it "should return formatted heading and path to file" do
       expect(subject).to receive(:lessons).and_return(sample_lessons)

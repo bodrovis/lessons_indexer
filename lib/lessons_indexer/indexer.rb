@@ -14,6 +14,7 @@ module LessonsIndexer
 
       build_index(course) unless options.skip_index
       add_headings(course) if options.headings
+      generate_pdfs(course) if options.pdf
       git_push! if options.git
     end
 
@@ -29,6 +30,13 @@ module LessonsIndexer
       course.load_headings!
       with_messages("Starting to add headings...", "Headings for the lesson files of #{course.title} course were added!") do
         course.generate_headings { |heading_line, lesson_file| prepend!(heading_line, lesson_file) }
+      end
+    end
+
+    def generate_pdfs(course)
+      course.load_lessons!
+      with_messages("Starting to generate PDFs...", "PDFs for the course #{course.title} were generated!") do
+        course.generate_pdfs
       end
     end
 

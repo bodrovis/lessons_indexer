@@ -9,6 +9,7 @@ RSpec.describe LessonsIndexer::Options do
     expect(options.all).to be_falsey
     expect(options.headings).to be_falsey
     expect(options.headings_dir).to eq('headings')
+    expect(options.pdf).to be_falsey
   end
 
   it "should allow to override some options" do

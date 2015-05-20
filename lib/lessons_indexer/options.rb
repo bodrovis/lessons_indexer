@@ -26,6 +26,7 @@ module LessonsIndexer
           o.bool '-a', '--all', 'Work with all branches (except for master)', default: false
           o.bool '-i', '--headings', 'Add heading images to the beginning of the lesson files?', default: false
           o.string '-d', '--headings_dir', 'Relative path to the directory with heading images', default: 'headings'
+          o.bool '-f', '--pdf', 'Should PDFs be generated?', default: false
         end.to_hash
       rescue Slop::Error => e
         exit_msg e.message

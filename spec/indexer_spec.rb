@@ -36,6 +36,13 @@ RSpec.describe LessonsIndexer::Indexer do
       expect(subject).not_to receive(:add_headings)
       capture_stdout { subject.do_work! }
     end
+
+    it "should generate pdfs if --pdf is set" do
+      allow(subject.options).to receive(:skip_index).and_return(true)
+      allow(subject.options).to receive(:pdf).and_return(true)
+      expect(subject).to receive(:generate_pdfs)
+      capture_stdout { subject.do_work! }
+    end
   end
 
   context "#get_course_dir" do
