@@ -3,10 +3,9 @@
 [![Code Climate](https://codeclimate.com/github/bodrovis/lessons_indexer/badges/gpa.svg)](https://codeclimate.com/github/bodrovis/lessons_indexer)
 [![Test Coverage](https://codeclimate.com/github/bodrovis/lessons_indexer/badges/coverage.svg)](https://codeclimate.com/github/bodrovis/lessons_indexer/coverage)
 [![Dependency Status](https://gemnasium.com/bodrovis/lessons_indexer.svg)](https://gemnasium.com/bodrovis/lessons_indexer)
-# Lessons Indexer for Learnable
+# Lessons Indexer for Sitepoint Premium
 
-Builds an index in Markdown format for the lesson files in the provided directory, adds heading images to the files,
-pushes changes to GitHub. Can work with multiple branches.
+Builds an index in Markdown format for the lesson files in the provided directory, adds heading images to the files, generates PDFs from Markdown, pushes changes to GitHub. Can work with multiple branches.
 
 ## Installation and Usage
 
