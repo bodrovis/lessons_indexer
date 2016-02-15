@@ -16,8 +16,7 @@ module LessonsIndexer
 
     def parse_args(argv)
       begin
-        Slop.parse(argv, strict: true, help: true,
-                             banner: 'Welcome to Lessons Indexer. Here is the list of available options:') do |o|
+        Slop.parse argv do |o|
           o.string '-p', '--path', 'Path to the directory with the course', default: '.'
           o.bool '-s', '--skip_index', 'Skip index generation for the course', default: false
           o.string '-o', '--output', 'Output file', default: 'README.md'
@@ -27,6 +26,10 @@ module LessonsIndexer
           o.bool '-i', '--headings', 'Add heading images to the beginning of the lesson files?', default: false
           o.string '-d', '--headings_dir', 'Relative path to the directory with heading images', default: 'headings'
           o.bool '-f', '--pdf', 'Should PDFs be generated?', default: false
+          o.on '--help' do
+            puts o
+            exit
+          end
         end.to_hash
       rescue Slop::Error => e
         exit_msg e.message
