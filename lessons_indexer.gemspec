@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.description   = %q{Lessons Indexer for Learnable. Build index, adds headings, generates PDFs from Markdown and pushes to GitHub.}
   spec.license       = "MIT"
 
-  spec.required_ruby_version = '>= 2.2.2'
+  spec.required_ruby_version = '>= 2.0.0'
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = ["lessons_indexer"]
