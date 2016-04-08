@@ -7,8 +7,10 @@ Gem::Specification.new do |spec|
   spec.email         = ["golosizpru@gmail.com"]
   spec.homepage      = "https://github.com/bodrovis/lessons_indexer"
   spec.summary       = %q{Lessons Indexer for Learnable}
-  spec.description   = %q{Lessons Indexer for Learnable}
+  spec.description   = %q{Lessons Indexer for Learnable. Build index, adds headings, generates PDFs from Markdown and pushes to GitHub.}
   spec.license       = "MIT"
+
+  spec.required_ruby_version = '>= 2.2.2'
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = ["lessons_indexer"]
