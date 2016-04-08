@@ -1,8 +1,8 @@
 module Kernel
   def with_messages(prior = '', after = '', delimiter = true, output = $stdout)
     return unless block_given?
-    prior = String(prior).to_s
-    after = String(after).to_s
+    prior = String(prior)
+    after = String(after)
 
     output.puts prior.magenta unless prior == ''
     yield
