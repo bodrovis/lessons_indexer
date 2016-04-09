@@ -7,6 +7,8 @@
 
 Builds an index in Markdown format for the lesson files in the provided directory, adds heading images to the files, generates PDFs from Markdown, pushes changes to GitHub. Can work with multiple branches.
 
+Relies on [messages_dictionary](https://github.com/bodrovis-learning/messages_dictionary) to store messages.
+
 ## Installation and Usage
 
 Requires [Ruby](https://www.ruby-lang.org) 2.0+ and [RubyGems](https://rubygems.org/). `Ruby\bin` should be added

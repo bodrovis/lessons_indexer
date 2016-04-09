@@ -1,5 +1,5 @@
 module LessonsIndexer
-  class Options
+  class Options < Messenger
     def initialize(argv)
       parse_args(argv).each do |k, v|
         # attr_accessor for each possible option
@@ -17,15 +17,15 @@ module LessonsIndexer
     def parse_args(argv)
       begin
         Slop.parse argv do |o|
-          o.string '-p', '--path', 'Path to the directory with the course', default: '.'
-          o.bool '-s', '--skip_index', 'Skip index generation for the course', default: false
-          o.string '-o', '--output', 'Output file', default: 'README.md'
-          o.bool '-g', '--git', 'Push changes to the remote Git branch?', default: false
-          o.string '-m', '--message', 'Commit message', default: 'Added index'
-          o.bool '-a', '--all', 'Work with all branches (except for master)', default: false
-          o.bool '-i', '--headings', 'Add heading images to the beginning of the lesson files?', default: false
-          o.string '-d', '--headings_dir', 'Relative path to the directory with heading images', default: 'headings'
-          o.bool '-f', '--pdf', 'Should PDFs be generated?', default: false
+          o.string '-p', '--path', pou('options.path'), default: pou('options.default.path')
+          o.bool '-s', '--skip_index', pou('options.skip_index'), default: false
+          o.string '-o', '--output', pou('options.output'), default: pou('options.default.output')
+          o.bool '-g', '--git', pou('options.git'), default: false
+          o.string '-m', '--message', pou('options.message'), default: pou('options.default.message')
+          o.bool '-a', '--all', pou('options.all'), default: false
+          o.bool '-i', '--headings', pou('options.headings'), default: false
+          o.string '-d', '--headings_dir', pou('options.headings_dir'), default: pou('options.default.headings_dir')
+          o.bool '-f', '--pdf', pou('options.pdf'), default: false
           o.on '--help' do
             puts o
             exit

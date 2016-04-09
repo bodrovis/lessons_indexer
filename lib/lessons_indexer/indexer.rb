@@ -1,5 +1,5 @@
 module LessonsIndexer
-  class Indexer
+  class Indexer < Messenger
     include Addons::FileManager
     include Addons::GitManager
 
@@ -20,7 +20,7 @@ module LessonsIndexer
 
     def build_index(course)
       course.load_lessons!
-      with_messages("Starting to build index...", "Index for the #{course.title} course is generated!") do
+      with_messages(pou('index.starting'), pou('index.done', title: course.title)) do
         write! course.generate_index, options.output
       end
     end
@@ -28,21 +28,21 @@ module LessonsIndexer
     def add_headings(course)
       course.load_lessons!
       course.load_headings!
-      with_messages("Starting to add headings...", "Headings for the lesson files of #{course.title} course were added!") do
+      with_messages(pou('heading.starting'), pou('heading.done', title: course.title)) do
         course.generate_headings { |heading_line, lesson_file| prepend!(heading_line, lesson_file) }
       end
     end
 
     def generate_pdfs(course)
       course.load_lessons!
-      with_messages("Starting to generate PDFs...", "PDFs for the course #{course.title} were generated!") do
+      with_messages(pou('pdf.starting'), pou('pdf.done', title: course.title)) do
         course.generate_pdfs
       end
     end
 
     def get_course_dir
       dir = Dir.entries('.').detect {|el| el =~ /_handouts\z/i}
-      exit_msg("Lesson files were not found inside the provided directory. Aborting...") if dir.nil?
+      exit_msg(pou('errors.files_not_found')) if dir.nil?
       dir
     end
 

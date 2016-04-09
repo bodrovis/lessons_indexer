@@ -1,5 +1,5 @@
 module LessonsIndexer
-  class Starter
+  class Starter < Messenger
     attr_reader :options
 
     def initialize(argv)
@@ -7,7 +7,7 @@ module LessonsIndexer
     end
 
     def start!
-      with_messages("=== [ Welcome to Lessons Indexer ver#{LessonsIndexer::VERSION}! ] ===", "=== [ DONE. ] ===", false) do
+      with_messages(pou('starter.welcome', version: LessonsIndexer::VERSION), pou('starter.done'), false) do
         indexer = Indexer.new(options)
 
         within options.path do

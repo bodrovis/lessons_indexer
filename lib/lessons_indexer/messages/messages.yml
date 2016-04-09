@@ -1,0 +1,33 @@
+starter:
+  welcome: "=== [ Welcome to Lessons Indexer ver{{version}}! ] ==="
+  done: "=== [ DONE. ] ==="
+index:
+  starting: "Starting to build index..."
+  done: "Index for the {{title}} course is generated!"
+course:
+  index_title: "# Index for the {{title}} course\n\n"
+heading:
+  starting: "Starting to add headings..."
+  done: "Headings for the lesson files of {{title}} course were added!"
+pdf:
+  starting: "Starting to generate PDFs..."
+  done: "PDFs for the course {{title}} were generated!"
+warnings:
+  heading_not_found: "I was not able to find heading image for the {{lesson}}"
+errors:
+  files_not_found: "Lesson files were not found inside the provided directory. Aborting..."
+options:
+  default:
+    path: '.'
+    output: 'README.md'
+    message: 'Added index'
+    headings_dir: 'headings'
+  path: 'Path to the directory with the course'
+  skip_index: 'Skip index generation for the course'
+  output: 'Output file'
+  git: 'Push changes to the remote Git branch?'
+  message: 'Commit message'
+  all: 'Work with all branches (except for master)'
+  headings: 'Add heading images to the beginning of the lesson files?'
+  headings_dir: 'Relative path to the directory with heading images'
+  pdf: 'Should PDFs be generated?'

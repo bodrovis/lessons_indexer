@@ -1,6 +1,16 @@
 require 'facets/string/titlecase'
 require 'slop'
 require 'colorize'
+require 'messages_dictionary'
+
+module LessonsIndexer
+  class Messenger
+    include MessagesDictionary
+    has_messages_dictionary file: 'messages.yml',
+                            dir: 'lib/lessons_indexer/messages',
+                            transform: ->(msg) {msg}
+  end
+end
 
 require 'lessons_indexer/addons/file_manager'
 require 'lessons_indexer/addons/git_manager'
@@ -19,6 +29,3 @@ require 'lessons_indexer/options'
 require 'lessons_indexer/course'
 require 'lessons_indexer/indexer'
 require 'lessons_indexer/starter'
-
-module LessonsIndexer
-end

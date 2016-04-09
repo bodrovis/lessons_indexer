@@ -1,5 +1,5 @@
 module LessonsIndexer
-  class Course
+  class Course < Messenger
     include Models
     include Collections
 
@@ -13,7 +13,7 @@ module LessonsIndexer
     end
 
     def generate_index
-      lessons.list.sort.inject("# Index for the " + title + " course\n\n") do |memo, lesson|
+      lessons.list.sort.inject(pou('course.index_title', title: title)) do |memo, lesson|
         memo + lesson.link(dir)
       end
     end
@@ -24,7 +24,7 @@ module LessonsIndexer
         if lesson_heading
           yield "![](#{headings_dir}/#{lesson_heading.file_name})\n\n", lesson.path
         else
-          warning "I was not able to find heading image for the #{lesson.name}"
+          warning pou('warnings.heading_not_found', lesson: lesson.name)
         end
       end
     end
