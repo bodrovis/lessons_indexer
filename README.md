@@ -72,7 +72,7 @@ the course and end with the `_handouts` (the program will do its best to convert
 be converted to "Introduction To Less").
 * Lesson files should have the lesson and step numbers in their title separated by `.` or `-`. It may contain any other
 words, but they have to have *.md* extension. Here is an example of a valid file name: `lesson3.2.md` or `h3-2.md`. All other
-files will be ignored.
+files will be ignored. Use `-l` option to generate lesson files automatically.
 * If the `-i` flag is set (to add headings to the lesson files), the `*_handouts` folder has to contain directory with the images.
 This directory's name can be provided with the `-d` flag. Files inside should follow the same naming conditions as for the lesson
 files (of course, they don't need to have the *.md* extension). Valid files names: `Git Course 1.1.jpg` or `google_maps10-3.png`.

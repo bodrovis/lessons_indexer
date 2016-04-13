@@ -71,6 +71,17 @@ RSpec.describe LessonsIndexer::Indexer do
       end
     end
 
+    context "#generate_pdfs" do
+      it "should display proper messages" do
+        expect(course).to receive(:load_lessons!)
+        expect(course).to receive(:generate_pdfs)
+        info = capture_stdout do
+          subject.generate_pdfs(course)
+        end.uncolorize
+        expect(info).to eq("Starting to generate PDFs...\nPDFs for the course My Course were generated!\n#{'=' * 50}\n")
+      end
+    end
+
     context "#build_index" do
       it "should display proper info messages" do
         info = capture_stdout do

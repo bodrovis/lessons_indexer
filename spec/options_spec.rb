@@ -11,6 +11,14 @@ RSpec.describe LessonsIndexer::Options do
     expect(options.headings_dir).to eq('headings')
     expect(options.pdf).to be_falsey
     expect(options.lessons).to eq([])
+    expect(options).not_to respond_to(:help)
+  end
+
+  it "should raise an error if an unknown option is passed" do
+    err = capture_stderr do
+      expect( -> {described_class.new(['-u', 'test'])} ).to raise_error(SystemExit)
+    end.uncolorize
+    expect(err).to eq("[ERROR] unknown option `-u'\n")
   end
 
   it "should allow to override some options" do
