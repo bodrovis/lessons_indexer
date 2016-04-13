@@ -5,7 +5,7 @@
 [![Dependency Status](https://gemnasium.com/bodrovis/lessons_indexer.svg)](https://gemnasium.com/bodrovis/lessons_indexer)
 # Lessons Indexer for Sitepoint Premium
 
-Builds an index in Markdown format for the lesson files in the provided directory, adds heading images to the files, generates PDFs from Markdown, pushes changes to GitHub. Can work with multiple branches.
+Builds an index in Markdown format for the lesson files in the provided directory, adds heading images to the files, generates PDFs from Markdown, pushes changes to GitHub. Can work with multiple branches and generate an array of empty files.
 
 Relies on [messages_dictionary](https://github.com/bodrovis-learning/messages_dictionary) to store messages.
 
@@ -54,6 +54,14 @@ has a heading in the beginning, it will be skipped.
 Defaults to `headings`, has no effect if the `-i` flag is not set.
 * `-f` (`--pdf`) - should PDFs be generated from the lesson files in markdown format. PDFs will have the same name as the
 lesson files, read more [below](#pdf-generation). Defauls to `false`.
+* `-l` (`--lessons`) - accepts an array of numbers delimited with `,` (for example, `-l 1,2,3`). Each number represents a number
+of files to generate for a specific lesson. In the provided example, the first lesson contains 1 step, the second -
+2 steps, the third - 3 steps. The script will then create a bunch of appropriate files, called *lessonx-y.md*,
+where *x* is a lesson number and *y* is a step number, for example *lesson1-1.md*, *lesson2-1.md* etc, up to *lesson3-3.md*. This option
+is useful when you only begin to produce handouts for a course and need a bunch of empty files to place your text into.
+**Please note** that if this option is present, all other options (expect for the `--path`) will be ignored,
+meaning that the script won't do anything else. This is because the lesson files will be empty and
+obviously you wouldn't want to generate PDFs or push anything to GitHub at this point.
 
 ## Some Assumptions
 

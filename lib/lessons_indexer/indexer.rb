@@ -12,10 +12,20 @@ module LessonsIndexer
     def do_work!
       course = Course.new(get_course_dir, options.headings_dir)
 
-      build_index(course) unless options.skip_index
-      add_headings(course) if options.headings
-      generate_pdfs(course) if options.pdf
-      git_push! if options.git
+      if options.lessons.length > 0
+        generate_files(course)
+      else
+        build_index(course) unless options.skip_index
+        add_headings(course) if options.headings
+        generate_pdfs(course) if options.pdf
+        git_push! if options.git
+      end
+    end
+
+    def generate_files(course)
+      with_messages(pou('lessons.starting'), pou('lessons.done', title: course.title)) do
+        course.generate_files(options.lessons)
+      end
     end
 
     def build_index(course)

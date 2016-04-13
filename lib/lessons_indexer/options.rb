@@ -26,6 +26,7 @@ module LessonsIndexer
           o.bool '-i', '--headings', pou('options.headings'), default: false
           o.string '-d', '--headings_dir', pou('options.headings_dir'), default: pou('options.default.headings_dir')
           o.bool '-f', '--pdf', pou('options.pdf'), default: false
+          o.array '-l', '--lessons', pou('options.lessons'), default: []
           o.on '--help' do
             puts o
             exit

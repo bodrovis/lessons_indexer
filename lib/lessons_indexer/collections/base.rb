@@ -10,7 +10,7 @@ module LessonsIndexer
       end
 
       def each
-        list.map { |heading| yield heading }
+        list.map { |element| yield element }
       end
     end
   end

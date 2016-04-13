@@ -26,6 +26,10 @@ RSpec.describe LessonsIndexer::Course do
     expect(subject).to respond_to(:generate_pdfs)
   end
 
+  specify "#generate_files" do
+    expect(subject).to respond_to(:generate_files)
+  end
+
   context "#generate_headings" do
     it "should return formatted heading and path to file" do
       expect(subject).to receive(:lessons).and_return(sample_lessons)
@@ -54,9 +58,9 @@ RSpec.describe LessonsIndexer::Course do
   end
 
   context "file system access" do
-    before(:all) { setup_env! }
+    before(:each) { setup_env! }
 
-    after(:all) { clear_env! }
+    after(:each) { clear_env! }
 
     context "#load_headings!" do
       let(:headings) {subject.load_headings!}

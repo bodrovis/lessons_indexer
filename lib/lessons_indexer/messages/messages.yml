@@ -1,6 +1,9 @@
 starter:
   welcome: "=== [ Welcome to Lessons Indexer ver{{version}}! ] ==="
   done: "=== [ DONE. ] ==="
+lessons:
+  starting: "Starting to generate files..."
+  done: "Lesson files for the {{title}} course are generated!"
 index:
   starting: "Starting to build index..."
   done: "Index for the {{title}} course is generated!"
@@ -31,3 +34,4 @@ options:
   headings: 'Add heading images to the beginning of the lesson files?'
   headings_dir: 'Relative path to the directory with heading images'
   pdf: 'Should PDFs be generated?'
+  lessons: 'Lessons'

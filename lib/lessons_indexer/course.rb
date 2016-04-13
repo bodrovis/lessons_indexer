@@ -12,6 +12,16 @@ module LessonsIndexer
       @headings = []
     end
 
+    def generate_files(lessons_count)
+      within(dir, true) do
+        lessons_count.map {|l| Integer(l)}.each_with_index do |steps, lesson|
+          (1..steps).each do |step|
+            File.new("lesson#{lesson + 1}-#{step}.md", 'w+').close
+          end
+        end
+      end
+    end
+
     def generate_index
       lessons.list.sort.inject(pou('course.index_title', title: title)) do |memo, lesson|
         memo + lesson.link(dir)
