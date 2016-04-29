@@ -12,14 +12,11 @@ module LessonsIndexer
     def do_work!
       course = Course.new(get_course_dir, options.headings_dir)
 
-      if options.lessons.length > 0
-        generate_files(course)
-      else
-        build_index(course) unless options.skip_index
-        add_headings(course) if options.headings
-        generate_pdfs(course) if options.pdf
-        git_push! if options.git
-      end
+      generate_files(course) if options.lessons.length > 0
+      build_index(course) unless options.skip_index
+      add_headings(course) if options.headings
+      generate_pdfs(course) if options.pdf
+      git_push! if options.git
     end
 
     def generate_files(course)

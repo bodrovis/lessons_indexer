@@ -23,10 +23,7 @@ RSpec.describe LessonsIndexer::Indexer do
       it "should generate files if --lessons is set" do
         allow(subject.options).to receive(:lessons).and_return([1,2])
         expect(subject).to receive(:generate_files)
-        expect(subject).not_to receive(:add_headings)
-        expect(subject).not_to receive(:git_push!)
-        expect(subject).not_to receive(:generate_pdfs)
-        expect(subject).not_to receive(:build_index)
+        expect(subject).to receive(:build_index)
         capture_stdout { subject.do_work! }
       end
 
