@@ -7,7 +7,7 @@ module LessonsIndexer
   class Messenger
     include MessagesDictionary
     has_messages_dictionary file: 'messages.yml',
-                            dir: 'lib/lessons_indexer/messages',
+                            dir: File.join(File.dirname(__FILE__), 'lessons_indexer/messages'),
                             transform: ->(msg) {msg}
   end
 end
