@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "slop", "~> 4.2"
   spec.add_dependency "facets", "~> 3.0"
-  spec.add_dependency "colorize", "~> 0.7.7"
+  spec.add_dependency "colorize", "~> 0.8"
   spec.add_dependency "messages_dictionary", "~> 0.1.2"
 
   spec.add_development_dependency "rake", "~> 11.1"
