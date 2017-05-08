@@ -20,10 +20,9 @@ Gem::Specification.new do |spec|
   spec.add_dependency "slop", "~> 4.2"
   spec.add_dependency "facets", "~> 3.0"
   spec.add_dependency "colorize", "~> 0.8"
-  spec.add_dependency "messages_dictionary", "~> 0.1.2"
+  spec.add_dependency "messages_dictionary", "~> 1.0"
 
-  spec.add_development_dependency "rake", "~> 11.1"
-  spec.add_development_dependency "rspec", "~> 3.4"
+  spec.add_development_dependency "rake", "~> 12.0"
+  spec.add_development_dependency "rspec", "~> 3.6"
   spec.add_development_dependency "codeclimate-test-reporter", "~> 1.0"
-  spec.add_development_dependency "fasterer", "~> 0.3"
 end
