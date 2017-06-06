@@ -1,7 +1,7 @@
 module LessonsIndexer
   module Models
     class Lesson < Base
-      NAME_PATTERN = /(?<minor_major>(?<major>(\d+))(?:\.|-)(?<minor>(\d+)))(?<ext>\.md)/i
+      NAME_PATTERN = /(?<minor_major>(?<major>(\d+))(?:[.-])(?<minor>(\d+)))(?<ext>\.md)/i
       attr_reader :name
 
       def initialize(file_name)

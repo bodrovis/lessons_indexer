@@ -3,7 +3,7 @@ module LessonsIndexer
     class Base
       include Comparable
 
-      VERSION_PATTERN = /(?<minor_major>(?<major>(\d+))(?:\.|-)(?<minor>(\d+)))/i
+      VERSION_PATTERN = /(?<minor_major>(?<major>(\d+))(?:[.-])(?<minor>(\d+)))/i
       attr_reader :file_name, :major, :minor, :path
 
       def initialize(file_name)
