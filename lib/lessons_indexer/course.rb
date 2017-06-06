@@ -9,7 +9,6 @@ module LessonsIndexer
       @dir = course_dir
       @headings_dir = headings_dir
       @title = dir.gsub(/_handouts\z/i, '').titlecase
-      @headings = []
     end
 
     def generate_files(lessons_count)
@@ -49,13 +48,13 @@ module LessonsIndexer
 
     def load_headings!
       within(dir + '/' + headings_dir, true) do
-        @headings = HeadingsList.new(all_with_pattern(Heading::VERSION_PATTERN).map {|heading| Heading.new(heading)})
+        @headings ||= HeadingsList.new(all_with_pattern(Heading::VERSION_PATTERN).map {|heading| Heading.new(heading)})
       end
     end
 
     def load_lessons!
       within(dir, true) do
-        @lessons = LessonsList.new(all_with_pattern(Lesson::NAME_PATTERN).map {|lesson| Lesson.new(lesson)})
+        @lessons ||= LessonsList.new(all_with_pattern(Lesson::NAME_PATTERN).map {|lesson| Lesson.new(lesson)})
       end
     end
 

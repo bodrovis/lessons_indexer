@@ -13,8 +13,12 @@ RSpec.describe LessonsIndexer::Course do
     expect(subject.headings_dir).to eq('headings')
   end
 
+  specify "#lessons" do
+    expect(subject.lessons).to be_nil
+  end
+
   specify "#headings" do
-    expect(subject.headings).to eq([])
+    expect(subject.headings).to be_nil
   end
 
   specify "#generate_index" do
